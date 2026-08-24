@@ -1,0 +1,110 @@
+{
+  "fold": 1,
+  "held_out": "scenario_1_run_03",
+  "stage2_model": "fold_01_scenario_1_run_03.json",
+  "n_train": 200,
+  "n_test": 11,
+  "latent_dim": 4,
+  "pca_explained": 1.0,
+  "train_loss": {
+    "flow": 0.01483,
+    "v": 5e-05,
+    "w": 4e-05,
+    "act": 5e-05
+  },
+  "velocity": {
+    "v": {
+      "mae": 0.1257,
+      "rmse": 0.1999,
+      "max_abs": 0.4624,
+      "r2": -0.1339,
+      "mae_per_step": [
+        0.0718,
+        0.0794,
+        0.0739,
+        0.1762,
+        0.1726,
+        0.1802
+      ]
+    },
+    "w": {
+      "mae": 0.1408,
+      "rmse": 0.2238,
+      "max_abs": 0.5738,
+      "r2": -0.0707,
+      "mae_per_step": [
+        0.0845,
+        0.0971,
+        0.0902,
+        0.1955,
+        0.1941,
+        0.1832
+      ]
+    },
+    "snapped_exact_match": 0.2424,
+    "snapped_exact_match_step0": 0.0,
+    "snapped_v_mae": 0.1112,
+    "snapped_w_mae": 0.1376
+  },
+  "ade": 0.1526,
+  "fde": 0.3082,
+  "ade_oracle_commands": 0.0406,
+  "fde_oracle_commands": 0.0594,
+  "ade_hold_last_command": 0.1477,
+  "fde_hold_last_command": 0.3207,
+  "min_ade_k5": 0.1521,
+  "min_fde_k5": 0.3074,
+  "action": {
+    "accuracy": 0.8182,
+    "per_class_recall": {
+      "FORWARD": {
+        "support": 2,
+        "recall": 0.0
+      },
+      "RIGHT_TURN": {
+        "support": 9,
+        "recall": 1.0
+      }
+    }
+  },
+  "accuracy": 0.8182,
+  "text_cosine_model": 0.9591,
+  "text_cosine_pca_ceiling": 1.0,
+  "text_cosine_mean_baseline": 0.9646,
+  "text_retrieval_accuracy": 0.8182,
+  "text_retrieval_accuracy_covered": 0.8182,
+  "text_bank_coverage": 1.0,
+  "text_bank_size": 5,
+  "text_n_unique_true": 2,
+  "step_sweep": {
+    "1": {
+      "ade": 0.1529,
+      "fde": 0.3088,
+      "v_mae": 0.1258,
+      "w_mae": 0.1404,
+      "ms_per_sample": 0.052
+    },
+    "2": {
+      "ade": 0.1525,
+      "fde": 0.308,
+      "v_mae": 0.1257,
+      "w_mae": 0.1408,
+      "ms_per_sample": 0.075
+    },
+    "4": {
+      "ade": 0.1526,
+      "fde": 0.3082,
+      "v_mae": 0.1257,
+      "w_mae": 0.1408,
+      "ms_per_sample": 0.139
+    },
+    "8": {
+      "ade": 0.1525,
+      "fde": 0.308,
+      "v_mae": 0.1257,
+      "w_mae": 0.1408,
+      "ms_per_sample": 0.235
+    }
+  },
+  "train_seconds": 13.7
+}

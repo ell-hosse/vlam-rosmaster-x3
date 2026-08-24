@@ -1,0 +1,5 @@
+numpy
+torch
+torchvision
+h5py
+sentence-transformers
