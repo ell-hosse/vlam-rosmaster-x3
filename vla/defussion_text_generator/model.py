@@ -167,14 +167,32 @@ class VLAModel(nn.Module):
 
 
 def parameter_report(model: nn.Module) -> dict:
-    """Trainable parameter count and on-disk size."""
-    per_part = {}
-    for name, module in model.named_children():
-        per_part[name] = sum(p.numel() for p in module.parameters())
+    """Trainable parameter count, on-disk size, and per-Euler-step cost.
+
+    The frozen CNN is not part of the model and is not counted here.
+    `flow_per_step_params` is what actually re-runs on each sampling step:
+    everything in the flow head except the per-frame `film_cond` branch,
+    which `sample()` hoists out of the loop.
+    """
+    per_part = {
+        name: sum(p.numel() for p in module.parameters())
+        for name, module in model.named_children()
+    }
     total = sum(p.numel() for p in model.parameters())
+
+    flow = getattr(model, "flow", None)
+    per_step = 0
+    if flow is not None:
+        hoisted = sum(p.numel() for p in flow.film_cond.parameters())
+        per_step = sum(p.numel() for p in flow.parameters()) - hoisted
+
     return {
         "total_params": total,
         "by_module": per_part,
         "size_fp32_mb": round(total * 4 / 1e6, 3),
         "size_fp16_mb": round(total * 2 / 1e6, 3),
+        "flow_per_step_params": per_step,
+        "flow_hoisted_params": (
+            sum(p.numel() for p in flow.film_cond.parameters()) if flow else 0
+        ),
     }

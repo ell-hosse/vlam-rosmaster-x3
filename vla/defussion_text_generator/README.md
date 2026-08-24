@@ -108,6 +108,31 @@ inside the fold loop.
 - **Check the sweep before fixing `flow_steps`.** On this dataset 1–2 steps
   typically matches 8. Take the cheapest setting the sweep supports.
 
+## Watching a fold
+
+```bash
+python vla/defussion_text_generator/visualize.py            # last fold
+python vla/defussion_text_generator/visualize.py --fold 9
+```
+
+Writes `runs/fold_XX_<scenario>/<scenario>.mp4` (plus PNGs): each camera frame
+with the ground-truth and predicted trajectories drawn on it, an exact
+bird's-eye panel beside it, and a banner with the true and predicted action,
+the per-frame ADE, and the retrieved caption.
+
+**Calibrate the overlay first.** Projecting waypoints onto the image needs the
+camera height and pitch, which the dataset does not ship. Easiest route:
+
+```bash
+python vla/defussion_text_generator/visualize.py --calib-sweep
+```
+
+One contact sheet, two dozen height/pitch combinations, pick the panel whose
+distance lines land on the mat correctly. If you can measure two distances,
+`--solve "row,dist;row,dist"` computes the exact values instead. The knobs:
+**more pitch moves the lines up, more height moves them down** — pitch
+dominates, so nudge it first. The bird's-eye panel needs no calibration.
+
 ## Deliberately not here (yet)
 
 - **Mirror augmentation.** It needs the class set to be closed under mirroring —

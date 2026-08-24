@@ -171,6 +171,15 @@ def main():
         model = VLAModel(img_all.shape[1], tel_all.shape[1], latent.dim, cfg)
         if size_info is None:
             size_info = parameter_report(model)
+            # printed before the first fold trains, not only in the summary
+            print("\nMODEL SIZE (trainable; the frozen CNN is not counted)")
+            print(f"  total            : {size_info['total_params']:,} parameters")
+            print(f"  size             : {size_info['size_fp32_mb']} MB fp32 / "
+                  f"{size_info['size_fp16_mb']} MB fp16")
+            for name, n in size_info["by_module"].items():
+                print(f"    {name:<10s} {n:>10,}")
+            print(f"  flow head cost   : ~{2 * size_info['flow_per_step_params'] / 1e6:.2f} "
+                  f"MFLOP per Euler step after the first\n")
 
         t0 = time.time()
         train_fold(cfg, model, pack(tr), weight, cfg.seed + fold_i)

@@ -3,3 +3,6 @@ h5py>=3.8
 torch>=2.0
 torchvision>=0.15
 sentence-transformers>=2.2
+matplotlib>=3.6
+# optional, for mp4 output (otherwise a GIF is written):
+# opencv-python
